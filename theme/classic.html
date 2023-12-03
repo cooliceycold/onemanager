@@ -1025,7 +1025,7 @@
                 filemd5 = spark.end();
                 td2.innerHTML='md5: '+filemd5;
                 delete uploading[upbigfilename];
-                upbigfilename = filemd5+ext;
+                upbigfilename = upbigfilename;
                 uploading[upbigfilename] = i;
 <!--GuestEnd-->
             td2.innerHTML='<!--constStr@GetUploadLink--> ...';
@@ -1090,7 +1090,7 @@
         var newstartsize = 0;
         if(!!file){
             var asize=0;
-            var chunksize=10*1024*1024; // chunk size, max 60M. 每小块上传大小，最大60M，微软建议10M
+            var chunksize=100*1024*1024; // chunk size, max 60M. 每小块上传大小，最大60M，微软建议10M
             var totalsize=file.size;
             var xhr2 = new XMLHttpRequest();
             xhr2.open("GET", url);
