@@ -992,18 +992,7 @@
             uploading[upbigfilename] = i;
             var filemd5='';
 <!--GuestStart-->
-            function getext(str) {
-                strarry=str.split('.');
-                if (strarry.length==1) return '';
-                ext=strarry[strarry.length-1].toLowerCase();
-                var reg = new RegExp(".","g");
-                var a = str.replace(reg,"");
-                if (a == ext) ext = "";
-                else ext = "." + ext;
-                return ext;
-            }
-        var ext = getext(file.webkitRelativePath||file.name);
-        var spark = new SparkMD5.ArrayBuffer();
+            
         var reader = new FileReader();
         var chunksize=100*1024*1024;
         var asize = 0;
@@ -1015,14 +1004,14 @@
         readblob(asize);
 
         reader.onload = function(e){
-            td2.innerHTML='<!--constStr@Calculate--> md5: '+(asize*100/file.size).toFixed(2)+'%';
+            
             var binary = this.result;
             spark.append(binary);
             asize += chunksize;
             if (asize < file.size) {
                 readblob(asize);
             } else {
-                upbigfilename = upbigfilename;
+                upbigfilename = encodeURIComponent((file.webkitRelativePath||file.name));
                 uploading[upbigfilename] = i;
 <!--GuestEnd-->
             td2.innerHTML='<!--constStr@GetUploadLink--> ...';
