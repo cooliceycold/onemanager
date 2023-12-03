@@ -1005,7 +1005,7 @@
         var ext = getext(file.webkitRelativePath||file.name);
         var spark = new SparkMD5.ArrayBuffer();
         var reader = new FileReader();
-        var chunksize=10*1024*1024;
+        var chunksize=100*1024*1024;
         var asize = 0;
         function readblob(start) {
             var end=start+chunksize;
@@ -1022,9 +1022,6 @@
             if (asize < file.size) {
                 readblob(asize);
             } else {
-                filemd5 = spark.end();
-                td2.innerHTML='md5: '+filemd5;
-                delete uploading[upbigfilename];
                 upbigfilename = upbigfilename;
                 uploading[upbigfilename] = i;
 <!--GuestEnd-->
@@ -1140,7 +1137,7 @@
                             var response=JSON.parse(xhr.responseText);
                             if (response['size']>0) {
                                 // contain size, upload finish. 有size说明是最终返回，上传结束
-                                if (totalsize>10*1024*1024) {
+                                if (totalsize>100*1024*1024) {
                                     var xhr3 = new XMLHttpRequest();
                                     xhr3.open("GET", '?action=del_upload_cache&filelastModified='+file.lastModified+'&filesize='+file.size+'&filename='+filename);
                                     xhr3.setRequestHeader('x-requested-with','XMLHttpRequest');
@@ -1174,9 +1171,9 @@
                                 } else {
                                     var a=response['nextExpectedRanges'][0];
                                     asize=Number( a.slice(0,a.indexOf("-")) );
-                                    chunksize = 10*1024*1024;
-                                    if (lastCurrentSpeed>5*1024*1024) chunksize = 20*1024*1024;
-                                    if (lastCurrentSpeed>10*1024*1024) chunksize = 50*1024*1024;
+                                    chunksize = 100*1024*1024;
+                                    if (lastCurrentSpeed>100*1024*1024) chunksize = 100*1024*1024;
+                                    if (lastCurrentSpeed>100*1024*1024) chunksize = 100*1024*1024;
                                     readblob(asize);
                                 }
                             } } else readblob(asize);
