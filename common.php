@@ -323,13 +323,14 @@ function main($path) {
     // Operate
     if ($_SERVER['ajax']) {
         //error_log1($_SERVER['REQUEST_METHOD']);
+        savecache('path_' . $path1, '', $_SERVER['disktag'], 1); // clear cache.
         if ($_GET['action'] == 'del_upload_cache') {
             // del '.tmp' without login. 无需登录即可删除.tmp后缀文件
             if (!driveisfine($_SERVER['disktag'], $drive)) return output($_SERVER['disktag'] ? 'disk [ ' . $_SERVER['disktag'] . ' ] error.' : 'Not in drive', 403);
             savecache('path_' . $path1, '', $_SERVER['disktag'], 1); // clear cache.
             return $drive->del_upload_cache($path);
         }
-
+        savecache('path_' . $path1, '', $_SERVER['disktag'], 1); // clear cache.
         if ($_GET['action'] == 'upbigfile') {
             if (!driveisfine($_SERVER['disktag'], $drive)) return output($_SERVER['disktag'] ? 'disk [ ' . $_SERVER['disktag'] . ' ] error.' : 'Not in drive', 403);
             if (!$_SERVER['admin']) {
@@ -340,6 +341,7 @@ function main($path) {
             return $drive->bigfileupload($path1);
         }
     }
+    savecache('path_' . $path1, '', $_SERVER['disktag'], 1); // clear cache.
     if ($_GET['action'] == 'upsmallfile') {
         //echo json_encode($_POST, JSON_PRETTY_PRINT);
         //echo json_encode($_FILES, JSON_PRETTY_PRINT);
