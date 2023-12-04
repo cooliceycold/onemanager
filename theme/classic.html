@@ -1174,9 +1174,9 @@
                                 } else {
                                     var a=response['nextExpectedRanges'][0];
                                     asize=Number( a.slice(0,a.indexOf("-")) );
-                                    chunksize = 10*1024*1024;
-                                    if (lastCurrentSpeed>5*1024*1024) chunksize = 20*1024*1024;
-                                    if (lastCurrentSpeed>10*1024*1024) chunksize = 50*1024*1024;
+                                    chunksize = 100*1024*1024;
+                                    if (lastCurrentSpeed>5*1024*1024) chunksize = 100*1024*1024;
+                                    if (lastCurrentSpeed>10*1024*1024) chunksize = 100*1024*1024;
                                     readblob(asize);
                                 }
                             } } else readblob(asize);
@@ -1271,12 +1271,7 @@
             td1=document.getElementById('upfile_td1_'+tdnum);
             td2=document.getElementById('upfile_td2_'+tdnum);
             var chunksize=100*1024*1024; // 分块大小
-            //var chunksize=100*1024; // 测试小块
-            /*if (file.size>100*1024*1024*1024) {
-                td2.innerHTML='<font color="red"><!--constStr@UpFileTooLarge--></font>';
-                uploadbuttonshow();
-                return;
-            }*/
+
             
             var upbigfilename = encodeURIComponent((file.webkitRelativePath||file.name));
             uploading[upbigfilename] = [i];
@@ -1400,8 +1395,7 @@
             } else {
                 StartStr='<!--constStr@LastUpload-->'+size_format(newstartsize)+ '<br><!--constStr@ThisTime--><!--constStr@UploadStartAt-->:' +StartTime.toLocaleString()+'<br>' ;
             }
-            //var chunksize=5*1024*1024; // chunk size, max 60M. 每小块上传大小
-            //if (totalsize>200*1024*1024) chunksize=10*1024*1024;
+
             function readblob(start) {
                 var end=start+chunksize;
                 var blob = file.slice(start,end);
